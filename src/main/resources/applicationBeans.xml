@@ -3,4 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="md5" class="normalSec.StrategyImpl.S_MD5"></bean>
+    <bean id="encrypter" class="normalSec.EncryptImpl.ConsoleInfoEncrypter"></bean>
+
+    <bean id="encrypterManager" class="normalSec.EncryptManager" scope="singleton">
+        <property name="encryptStrategy" ref="md5"/>
+        <property name="encryter" ref="encrypter"/>
+    </bean>
+
 </beans>
