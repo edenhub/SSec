@@ -1,6 +1,6 @@
-package normalSec.EncryptImpl;
+package NormalSec.EncryptImpl;
 
-import normalSec.Encrypter;
+import NormalSec.Encrypter;
 
 /**
  * Created by lab on 2014/11/13.

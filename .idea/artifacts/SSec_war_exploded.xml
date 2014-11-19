@@ -2,7 +2,6 @@
   <artifact type="exploded-war" name="SSec:war exploded">
     <output-path>$PROJECT_DIR$/target/SecDemo</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="SSec/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="SSec" />
@@ -19,8 +18,10 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-web:3.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.2.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.2.5.RELEASE" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.31" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="SSec/web/Web" />
     </root>
   </artifact>
 </component>

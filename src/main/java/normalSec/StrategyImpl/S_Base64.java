@@ -1,6 +1,6 @@
-package normalSec.StrategyImpl;
+package NormalSec.StrategyImpl;
 
-import normalSec.EncryptStrategy;
+import NormalSec.EncryptStrategy;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;

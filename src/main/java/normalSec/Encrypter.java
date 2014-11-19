@@ -1,4 +1,4 @@
-package normalSec;
+package NormalSec;
 
 import java.io.UnsupportedEncodingException;
 
