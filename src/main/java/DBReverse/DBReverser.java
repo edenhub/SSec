@@ -110,8 +110,8 @@ public class DBReverser {
 
                 tableStc.setTableName(tableName);
                 reversePrimaryKeys(connection,databaseMetaData, tableName, tableStc);
-                reverseTableStruct(statement,tableName,tableStc);
-                reverseForiegnKeys(connection,databaseMetaData, tableName,tableStc);
+                reverseTableStructe(statement,tableName,tableStc);
+                reverseForeignKeys(connection,databaseMetaData, tableName,tableStc);
 
                 tableStcs.add(tableStc);
                 statement.close();
@@ -151,7 +151,7 @@ public class DBReverser {
      * @param tableStc
      * @throws SQLException
      */
-    protected void reverseTableStruct(Statement statement,String tableName,TableStc tableStc) throws SQLException {
+    protected void reverseTableStructe(Statement statement,String tableName,TableStc tableStc) throws SQLException {
         TableStructSelectSQL selectSQL = selectType(this.dbType);
         String queryStr = selectSQL.selectSQL(tableName);
         ResultSet resultSet = statement.executeQuery(queryStr);
@@ -175,7 +175,7 @@ public class DBReverser {
      * @param tableStc
      * @throws SQLException
      */
-    protected void reverseForiegnKeys(Connection connection,DatabaseMetaData databaseMetaData,
+    protected void reverseForeignKeys(Connection connection,DatabaseMetaData databaseMetaData,
                                    String tableName,TableStc tableStc)
             throws SQLException {
         ResultSet importSet = databaseMetaData.getImportedKeys(connection.getCatalog(),"",tableName);
@@ -243,23 +243,46 @@ public class DBReverser {
     ================================================================
 
                         TableStructSelectSQL
+     不同数据库有不同实现，在进行字段的反向时需要查询一便数据集，
+     可以根据不同的数据库进行不同的优化，默认的方式是获取全部数据集
 
     ================================================================
      */
     public interface TableStructSelectSQL{
+        /**
+         * 返回数据库查询SQL语句
+         * @param tableName 表名
+         * @return SQL查询语句
+         */
         public String selectSQL(String tableName);
     }
 
+    /**
+     * 默认的实现
+     */
     public static class NormalSelectSQL implements TableStructSelectSQL{
 
+        /**
+         * 默认返回所有的数据集
+         * @param tableName 表名
+         * @return
+         */
         @Override
         public String selectSQL(String tableName) {
             return "select * from "+tableName;
         }
     }
 
+    /**
+     * 根据MYSQL优化
+     */
     public static class MYSQLSelectSQL implements TableStructSelectSQL{
 
+        /**
+         * MYSQL有Limit语句，只用返回1条数据
+         * @param tableName 表名
+         * @return
+         */
         @Override
         public String selectSQL(String tableName) {
             return "select * from "+tableName+" limit 0,1";
