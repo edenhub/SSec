@@ -10,8 +10,13 @@ import java.util.List;
 /**
  * Created by lab on 2014/11/19.
  */
+
+/**
+ * 用于连接数据库，获取表信息
+ */
 public class DBReverser {
     private DBConnector dbConnector;
+    //表结构列表
     private List<TableStc> tableStcs;
     private DBType dbType;
 
@@ -20,6 +25,15 @@ public class DBReverser {
         tableStcs = new ArrayList<TableStc>();
     }
 
+    /**
+     * 初始化，获得数据库连接，必须操作
+     * @param url 数据库连接符
+     * @param username 用户名
+     * @param password 密码
+     * @param dbType 数据库类型
+     * @param driverName 驱动类
+     * @throws Exception
+     */
     public void init(String url, String username, String password, DBType dbType, String driverName)
             throws Exception{
         this.dbType = dbType;
@@ -27,29 +41,65 @@ public class DBReverser {
             dbConnector.conn(url,username,password,dbType,driverName);
     }
 
+    /**
+     * 初始化，获得数据库连接，必须操作
+     * @param url 数据库连接符
+     * @param username 用户名
+     * @param password 密码
+     * @param dbType 数据库类型
+     * @param driverName 驱动类
+     * @throws Exception
+     */
     public void init(String url, String username, String password, String dbType, String driverName)
             throws Exception{
         this.dbType = DBType.selectType(dbType);
         init(url, username, password, this.dbType, driverName);
     }
 
+    /**
+     * 初始化，获得数据库连接，必须操作，使用默认驱动
+     * @param url 数据库连接符
+     * @param username 用户名
+     * @param password 密码
+     * @param dbType 数据库类型
+     * @throws Exception
+     */
     public void init(String url, String username, String password, DBType dbType)
             throws Exception{
+        this.dbType = dbType;
         if (!dbConnector.isReadable())
             dbConnector.conn(url,username,password,dbType);
     }
 
+    /**
+     * 初始化，获得数据库连接，必须操作，使用默认驱动
+     * @param url 数据库连接符
+     * @param username 用户名
+     * @param password 密码
+     * @param dbType 数据库类型
+     * @throws Exception
+     */
     public void init(String url,String username,String password,String dbType)
             throws Exception{
         this.dbType = DBType.selectType(dbType);
         init(url, username, password, this.dbType);
     }
 
+    /**
+     * 执行反向工程
+     * @throws Exception
+     */
     public void buildData() throws Exception {
+        assert(dbConnector.getConnection()!=null);
         reverseTables(dbConnector.getConnection());
     }
 
-    public void reverseTables(Connection connection) throws SQLException {
+    /**
+     * 反向表工程
+     * @param connection
+     * @throws SQLException
+     */
+    protected void reverseTables(Connection connection) throws SQLException {
         DatabaseMetaData databaseMetaData = connection.getMetaData();
         ResultSet tableSets = databaseMetaData.getTables(connection.getCatalog(),"%","%",new String[]{"TABLE"});
         if (tableSets!=null && tableSets.first()){
@@ -61,7 +111,7 @@ public class DBReverser {
                 tableStc.setTableName(tableName);
                 reversePrimaryKeys(connection,databaseMetaData, tableName, tableStc);
                 reverseTableStruct(statement,tableName,tableStc);
-                reverseForiegnKeys(databaseMetaData, tableName,tableStc);
+                reverseForiegnKeys(connection,databaseMetaData, tableName,tableStc);
 
                 tableStcs.add(tableStc);
                 statement.close();
@@ -72,7 +122,15 @@ public class DBReverser {
 
     }
 
-    public void reversePrimaryKeys(Connection connection,DatabaseMetaData databaseMetaData,
+    /**
+     * 反向主键工程
+     * @param connection
+     * @param databaseMetaData
+     * @param tableName
+     * @param tableStc
+     * @throws SQLException
+     */
+    protected void reversePrimaryKeys(Connection connection,DatabaseMetaData databaseMetaData,
                                    String tableName,TableStc tableStc)
             throws SQLException {
         ResultSet primarySet = databaseMetaData.getPrimaryKeys(connection.getCatalog(),"",tableName);
@@ -86,7 +144,14 @@ public class DBReverser {
         primarySet.close();
     }
 
-    public void reverseTableStruct(Statement statement,String tableName,TableStc tableStc) throws SQLException {
+    /**
+     * 反向字段工程
+     * @param statement
+     * @param tableName
+     * @param tableStc
+     * @throws SQLException
+     */
+    protected void reverseTableStruct(Statement statement,String tableName,TableStc tableStc) throws SQLException {
         TableStructSelectSQL selectSQL = selectType(this.dbType);
         String queryStr = selectSQL.selectSQL(tableName);
         ResultSet resultSet = statement.executeQuery(queryStr);
@@ -102,11 +167,38 @@ public class DBReverser {
         resultSet.close();
     }
 
-    public void reverseForiegnKeys(DatabaseMetaData databaseMetaData,String tableName,TableStc tableStc){
-//        2014-11-19 未完成
+    /**
+     * 反向外键工程
+     * @param connection
+     * @param databaseMetaData
+     * @param tableName
+     * @param tableStc
+     * @throws SQLException
+     */
+    protected void reverseForiegnKeys(Connection connection,DatabaseMetaData databaseMetaData,
+                                   String tableName,TableStc tableStc)
+            throws SQLException {
+        ResultSet importSet = databaseMetaData.getImportedKeys(connection.getCatalog(),"",tableName);
+        if (importSet!=null && importSet.first()){
+            do {
+                String sourceKey = importSet.getString("PKCOLUMN_NAME");
+                String fkTable = importSet.getString("PKTABLE_NAME");
+                String fkName = importSet.getString("FKCOLUMN_NAME");
+                tableStc.getGeneralizations().put(sourceKey,new MapPair<String, String>(fkTable,fkName));
+            }while (importSet.next());
+        }
+        importSet.close();
     }
 
-    private TableStructSelectSQL selectType(DBType dbType){
+     /*
+    ================================================================
+
+                        根据数据库情况再增加
+
+    ================================================================
+     */
+
+    protected TableStructSelectSQL selectType(DBType dbType){
         switch (dbType){
             case MYSQL:
                 return new MYSQLSelectSQL();

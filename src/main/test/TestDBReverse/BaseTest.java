@@ -78,7 +78,9 @@ public class BaseTest {
     public void testGetImportKeys(DatabaseMetaData metaData,String tableName) throws SQLException {
         ResultSet importSet = metaData.getImportedKeys(connection.getCatalog(),"",tableName);
         while(importSet.next()){
-            System.out.println("外表名 "+importSet.getString("PKTABLE_NAME"));
+            System.out.print("本表主键 "+importSet.getString("PKCOLUMN_NAME")+" ");
+            System.out.print("外表名 "+importSet.getString("PKTABLE_NAME")+" ");
+            System.out.println("外表主键 "+importSet.getString("FKCOLUMN_NAME"));
         }
 
         importSet.close();

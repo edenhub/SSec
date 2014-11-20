@@ -3,12 +3,24 @@ package DBReverse.DBInfo;
 /**
  * Created by lab on 2014/11/19.
  */
+
+/**
+ * 数据库的连接信息
+ */
 public class DBInfo {
     private DBType type;
     private String url;
     private String username;
     private String password;
     private String driverClassName;
+
+     /*
+    ================================================================
+
+                        GetterAndSetter
+
+    ================================================================
+     */
 
     public DBType getType() {
         return type;

@@ -7,9 +7,13 @@ import java.sql.SQLException;
 /**
  * Created by lab on 2014/11/19.
  */
+
+/**
+ * 用户获取数据库连接对象
+ */
 public class DBConnector implements DBAuth, DBDriverName {
     private DBInfo dbInfo;
-    private Connection connection;
+    private Connection connection = null;
 
     public DBConnector() {
         dbInfo = new DBInfo();
@@ -17,7 +21,7 @@ public class DBConnector implements DBAuth, DBDriverName {
 
     @Override
     public boolean isReadable() throws SQLException {
-        if (connection!=null && connection.isClosed()) {
+        if (connection==null || connection.isClosed()) {
             return false;
         }
         return true;
@@ -49,6 +53,12 @@ public class DBConnector implements DBAuth, DBDriverName {
                 dbInfo.getPassword(),dbInfo.getType(),dbInfo.getDriverClassName());
     }
 
+    /**
+     * 根据数据库类型返回对应的默认驱动类名
+     * @param dbType 数据库类型
+     * @return 默认驱动类名
+     * @throws ClassNotFoundException
+     */
     public String selectDriverName(DBType dbType) throws ClassNotFoundException {
         switch (dbType) {
             case MYSQL:
@@ -61,6 +71,14 @@ public class DBConnector implements DBAuth, DBDriverName {
         throw new ClassNotFoundException("没有找到该类型的驱动");
     }
 
+    /**
+     * 设置DBInfo
+     * @param url
+     * @param username
+     * @param password
+     * @param dbType
+     * @param driverName
+     */
     public void setDbInfo(String url, String username, String password, DBType dbType, String driverName){
         dbInfo.setUsername(username);
         dbInfo.setPassword(password);

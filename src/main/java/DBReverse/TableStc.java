@@ -9,18 +9,30 @@ import java.util.Map;
 /**
  * Created by lab on 2014/11/19.
  */
+
+/**
+ * 表结构对象
+ */
 public class TableStc implements TableReverse {
     private String tableName;
     private int columnNum;
     private List<String> primaryKeys;
     private Map<String,String> fields;
-    private Map<String,String> generalizations;
+    private Map<String,MapPair<String,String>> generalizations;
 
     public TableStc(){
         primaryKeys = new ArrayList<String>();
         fields = new HashMap<String, String>();
-        generalizations = new HashMap<String, String>();
+        generalizations = new HashMap<String, MapPair<String, String>>();
     }
+
+       /*
+    ================================================================
+
+                        GetterAndSetter
+
+    ================================================================
+     */
 
     public String getTableName() {
         return tableName;
@@ -54,13 +66,21 @@ public class TableStc implements TableReverse {
         this.primaryKeys = primaryKeys;
     }
 
-    public Map<String, String> getGeneralizations() {
+    public Map<String, MapPair<String, String>> getGeneralizations() {
         return generalizations;
     }
 
-    public void setGeneralizations(Map<String, String> generalizations) {
+    public void setGeneralizations(Map<String, MapPair<String, String>> generalizations) {
         this.generalizations = generalizations;
     }
+
+       /*
+    ================================================================
+
+                        GetterAndSetter
+
+    ================================================================
+     */
 
     @Override
     public String toXML() {
