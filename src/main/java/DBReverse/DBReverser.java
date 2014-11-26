@@ -184,6 +184,8 @@ public class DBReverser {
                 String sourceKey = importSet.getString("PKCOLUMN_NAME");
                 String fkTable = importSet.getString("PKTABLE_NAME");
                 String fkName = importSet.getString("FKCOLUMN_NAME");
+                tableStc.getForeignTables().add(fkTable);
+                tableStc.getForeignKeys().add(fkName);
                 tableStc.getGeneralizations().put(sourceKey,new MapPair<String, String>(fkTable,fkName));
             }while (importSet.next());
         }

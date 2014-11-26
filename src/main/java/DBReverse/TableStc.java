@@ -1,10 +1,10 @@
 package DBReverse;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimaps;
+
+import java.util.*;
 
 /**
  * Created by lab on 2014/11/19.
@@ -14,16 +14,28 @@ import java.util.Map;
  * 表结构对象
  */
 public class TableStc implements TableReverse {
+//    表名
     private String tableName;
+//    属性列数
     private int columnNum;
+//    主键列表
     private List<String> primaryKeys;
+//    属性列，包含所有的属性
     private Map<String,String> fields;
-    private Map<String,MapPair<String,String>> generalizations;
+//    外键列表
+    private Set<String> foreignKeys;
+//    外表列表
+    private Set<String> foreignTables;
+//    主键和外表，外表键映射表 ： 主键 -> <外表名，外表哪个键>
+    private HashMultimap<String, MapPair<String,String>> generalizations;
 
     public TableStc(){
         primaryKeys = new ArrayList<String>();
         fields = new HashMap<String, String>();
-        generalizations = new HashMap<String, MapPair<String, String>>();
+        foreignKeys = new LinkedHashSet<String>();
+        foreignTables = new LinkedHashSet<String>();
+//        generalizations = new HashMap<String, MapPair<String, String>>();
+        generalizations = HashMultimap.create();
     }
 
        /*
@@ -66,13 +78,37 @@ public class TableStc implements TableReverse {
         this.primaryKeys = primaryKeys;
     }
 
-    public Map<String, MapPair<String, String>> getGeneralizations() {
+    public HashMultimap<String, MapPair<String, String>> getGeneralizations() {
         return generalizations;
     }
 
-    public void setGeneralizations(Map<String, MapPair<String, String>> generalizations) {
+    public void setGeneralizations(HashMultimap<String, MapPair<String, String>> generalizations) {
         this.generalizations = generalizations;
     }
+
+    public Set<String> getForeignKeys() {
+        return foreignKeys;
+    }
+
+    public void setForeignKeys(Set<String> foreignKeys) {
+        this.foreignKeys = foreignKeys;
+    }
+
+    public Set<String> getForeignTables() {
+        return foreignTables;
+    }
+
+    public void setForeignTables(Set<String> foreignTables) {
+        this.foreignTables = foreignTables;
+    }
+
+    //    public Map<String, MapPair<String, String>> getGeneralizations() {
+//        return generalizations;
+//    }
+
+//    public void setGeneralizations(Map<String, MapPair<String, String>> generalizations) {
+//        this.generalizations = generalizations;
+//    }
 
        /*
     ================================================================

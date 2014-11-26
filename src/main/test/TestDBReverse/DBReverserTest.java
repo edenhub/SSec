@@ -2,10 +2,14 @@ package TestDBReverse;
 
 import DBReverse.DBInfo.DBType;
 import DBReverse.DBReverser;
+import DBReverse.MapPair;
 import DBReverse.TableStc;
+import com.google.common.collect.HashMultimap;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by lab on 2014/11/20.
@@ -23,8 +27,21 @@ public class DBReverserTest {
 
         List<TableStc> tableStcs = dbReverser.getTableStcs();
         for(TableStc tableStc : tableStcs){
-            System.out.println(tableStc);
-            System.out.println(tableStc.toJSArray());
+            System.out.println("表名 : "+tableStc.getTableName());
+            System.out.println("属性列个数 : "+tableStc.getColumnNum());
+            System.out.println("主键列表 ： "+tableStc.getPrimaryKeys());
+            System.out.println("所有的属性类 : "+tableStc.getFields());
+            System.out.println("外键列表 ==================================================>>>");
+            System.out.println("所有的外键 ："+tableStc.getForeignKeys());
+            System.out.println("所有的从表 : "+tableStc.getForeignTables());
+            HashMultimap<String, MapPair<String,String>> foreingKeys = tableStc.getGeneralizations();
+            for (String s : foreingKeys.keySet()){
+                System.out.println("主表中键 : "+s+"对应如下外键 ：");
+                System.out.println(foreingKeys.get(s));
+            }
+//            System.out.println(tableStc);
+            System.out.println("属性列转JS数组形式 ： "+tableStc.toJSArray());
+            System.out.println("<<<==========================================================");
         }
     }
 }
