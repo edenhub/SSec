@@ -8,11 +8,11 @@
        http://www.springframework.org/schema/security/spring-security.xsd">
 
     <security:http access-denied-page="/403.jsp">
-    <security:intercept-url pattern="/index.jsp" filters="none"/>
-    <security:form-login login-page="/index.jsp"
-                         authentication-failure-url="index.jsp?error=true"
-                         default-target-url="/index.jsp"/>
-    <security:logout logout-success-url="/index.jsp"/>
-    <security:http-basic/>
-</security:http>
+        <security:intercept-url pattern="/index.jsp" filters="none"/>
+        <security:form-login login-page="/index.jsp"
+                             authentication-failure-url="index.jsp?error=true"
+                             default-target-url="/index.jsp"/>
+        <security:logout logout-success-url="/index.jsp"/>
+        <security:http-basic/>
+    </security:http>
 </beans>
