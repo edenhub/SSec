@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <title>ACE in Action</title>
+    <script src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css" media="screen">
+        #editorSql {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 1000px;
+            height: 500px;;
+        }
+    </style>
+</head>
+<body>
+
+<div id="editorSql">
+    insert into t_users(username,password,address) values({0},{1},{2});
+    insert into t_goods(goodname,price,belongto) values({0},{1},{2});
+</div>
+
+
+<script>
+    var editor = ace.edit("editorSql");
+    editor.setTheme("ace/theme/monokai");
+    editor.getSession().setMode("ace/mode/sql");
+</script>
+</body>
+</html>

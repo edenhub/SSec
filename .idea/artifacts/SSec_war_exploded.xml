@@ -24,7 +24,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="E:\develop\workspace\IntelljIdea\SSecLab\target/MANIFEST.MF" />
+        <element id="file-copy" path="D:\develop\workspaceN\intellij\SSec\target/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="SSec/web/Web" />
     </root>
