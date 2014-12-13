@@ -1,6 +1,8 @@
 <html lang="en">
 <head>
     <title>ACE in Action</title>
+    <meta charset="utf-8">
+    <script src="js/jquery-1.11.1.min.js"></script>
     <script src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js" type="text/javascript" charset="utf-8"></script>
     <style type="text/css" media="screen">
         #editorSql {
@@ -9,23 +11,49 @@
             right: 0;
             bottom: 0;
             left: 0;
+            width: 800px;
+            height: 500px;
+            position : relative;
+        }
+
+        input{
             width: 1000px;
-            height: 500px;;
         }
     </style>
+    <script>
+        $(document).ready(function(){
+
+            $("#btnSubmit").click(function(){
+                var sql1 = $("#sql1").val();
+                var sql2 = $("#sql2").val();
+
+                $.ajax({
+                    url:"/ssc/sql?sql1="+sql1+"&sql2="+sql2,
+                    success : function(msg){
+                        alert(msg);
+                    }
+                })
+            });
+
+        });
+    </script>
 </head>
 <body>
 
-<div id="editorSql">
-    insert into t_users(username,password,address) values({0},{1},{2});
-    insert into t_goods(goodname,price,belongto) values({0},{1},{2});
-</div>
+<!--<div id="editorSql">-->
+    <!--insert into t_users(username,password,address) values(\"{0}\",\"{1}\",\"{2}\");-->
+    <!--insert into t_goods(goodname,price,belongto) values(\"{0}\",{1},\"{2}\");-->
+<!--</div>-->
+<input id="sql1" type="text" class="$input">
+<br>
+<input id="sql2" type="text" class="$input">
+<br>
+<button id="btnSubmit">Submit</button>
 
-
-<script>
-    var editor = ace.edit("editorSql");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/sql");
-</script>
+<!--<script>-->
+    <!--var editor = ace.edit("editorSql");-->
+    <!--editor.setTheme("ace/theme/monokai");-->
+    <!--editor.getSession().setMode("ace/mode/sql");-->
+<!--</script>-->
 </body>
 </html>

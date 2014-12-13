@@ -34,4 +34,13 @@
         <url-pattern>/compile</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>sqlActionServlet</servlet-name>
+        <servlet-class>DBPersistence.SqlCombined.SqlActionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>sqlActionServlet</servlet-name>
+        <url-pattern>/sql</url-pattern>
+    </servlet-mapping>
+
 </web-app>
