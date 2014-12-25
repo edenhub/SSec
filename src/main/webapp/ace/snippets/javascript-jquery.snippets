@@ -8,7 +8,7 @@ snippet ajax
 	$.ajax({
 		url: '${1:mydomain.com/url}',
 		type: '${2:POST}',
-		dataType: '${3:xml/html/script/json}',
+		itemType: '${3:xml/html/script/json}',
 		data: $.param( $('${4:Element or Expression}') ),
 		complete: function (jqXHR, textStatus) {
 			${5:// callback}
@@ -56,7 +56,7 @@ snippet ajaxsetup
 	$.ajaxSetup({
 		url: "${1:mydomain.com/url}",
 		type: "${2:POST}",
-		dataType: "${3:xml/html/script/json}",
+		itemType: "${3:xml/html/script/json}",
 		data: $.param( $("${4:Element or Expression}") ),
 		complete: function (jqXHR, textStatus) {
 			${5:// callback}
