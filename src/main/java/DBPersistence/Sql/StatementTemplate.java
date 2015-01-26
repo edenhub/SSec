@@ -27,15 +27,23 @@ public class StatementTemplate<R> {
         this.connection = connection;
     }
 
-    public R executeStmSQL(StatementExecutor statmentExecutor) {
+    public void closeAutoCommit() throws SQLException {
+        if (connection.getAutoCommit())
+            connection.setAutoCommit(false);
+    }
+
+    public R executeStmSQL(StatementExecutor statementExecutor){
+        return executeStmSQL(statementExecutor,true);
+    }
+
+    public R executeStmSQL(StatementExecutor statementExecutor,boolean isCloseAutoCommit) {
         R result = null;
 
         try {
-            if (connection.getAutoCommit()) {
-                connection.setAutoCommit(false);
-            }
+            if (isCloseAutoCommit)
+                closeAutoCommit();
             statement = connection.createStatement();
-            result = statmentExecutor.execute(statement);
+            result = statementExecutor.execute(statement);
             connection.commit();
             statement.close();
         } catch (SQLException e) {
@@ -52,12 +60,16 @@ public class StatementTemplate<R> {
         return result;
     }
 
-    public R executePreparedSQL(PreparedStatementExecutor preparedExecutor,String exeSQL) {
+    public R executePreparedSQL(PreparedStatementExecutor preparedStatementExecutor,String exeSQL){
+        return executePreparedSQL(preparedStatementExecutor,exeSQL,true);
+    }
+
+    public R executePreparedSQL(PreparedStatementExecutor preparedExecutor,
+                                String exeSQL,boolean isCloseAutoCommit) {
         R result = null;
         try {
-            if (connection.getAutoCommit()) {
-                connection.setAutoCommit(false);
-            }
+            if (isCloseAutoCommit)
+                closeAutoCommit();
             preparedStatement = connection.prepareStatement(exeSQL);
             result = preparedExecutor.execute(preparedStatement, exeSQL);
             connection.commit();

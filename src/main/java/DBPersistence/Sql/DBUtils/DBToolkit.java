@@ -28,14 +28,32 @@ public class DBToolkit {
     }
 
     public static boolean isConnectionClosed(Connection connection){
-        return connection==null ? true : false;
+        if(connection!=null)
+            try {
+                return connection.isClosed();
+            } catch (SQLException e) {
+//                e.printStackTrace();
+            }
+        return true;
     }
 
     public static boolean isStatmentClosed(Statement statement){
-        return statement==null ? true : false;
+        if(statement!=null)
+            try {
+                return statement.isClosed();
+            } catch (SQLException e) {
+//                e.printStackTrace();
+            }
+        return false;
     }
 
     public static boolean isPreparedStatementClosed(PreparedStatement preparedStatement){
-        return preparedStatement==null ? true : false;
+        if(preparedStatement!=null)
+            try {
+                return preparedStatement.isClosed();
+            } catch (SQLException e) {
+//                e.printStackTrace();
+            }
+        return false;
     }
 }
