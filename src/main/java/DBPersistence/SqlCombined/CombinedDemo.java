@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  * Created by adam on 2014/12/9.
  */
 public class CombinedDemo {
-    public static final String addUserSqlDemo = "insert into t_users(username,password,address) values(\"{0}\",\"{1}\",\"{2}\")";
+    public static final String addUserSqlDemo = "insert into t_users(username,password) values(\"{0}\",\"{1}\")";
     public static final String addGoodSqlDemo = "insert into t_goods(goodname,price,belongto) values(\"{0}\",{1},\"{2}\")";
 
 

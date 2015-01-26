@@ -69,4 +69,18 @@ public class DPanel extends JPanel {
         });
     }
 
+    public static void testM(){
+        synchronized(DPanel.class){
+            try {
+                DPanel.class.wait();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static synchronized void testM2(){
+        DPanel.class.notify();
+    }
+
 }

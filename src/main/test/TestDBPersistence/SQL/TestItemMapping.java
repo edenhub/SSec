@@ -1,6 +1,7 @@
 package TestDBPersistence.SQL;
 
 import DBPersistence.Sql.ItemMapping;
+import DBPersistence.SqlCombined.CombinedDemo;
 import org.junit.Test;
 
 /**
@@ -14,5 +15,7 @@ public class TestItemMapping {
         System.out.println(itemMapping.itemPreSentate());
         ItemMapping itemMapping1 = new ItemMapping(1,"age","int","age","user");
         System.out.println(itemMapping1.itemPreSentate(true));
+
+        System.out.println(CombinedDemo.addGoodSqlDemo);
     }
 }
