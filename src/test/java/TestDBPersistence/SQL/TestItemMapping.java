@@ -1,6 +1,6 @@
 package java.TestDBPersistence.SQL;
 
-import DBPersistence.Sql.ItemMapping;
+import DBPersistence.Sql.old.ItemMapping;
 import DBPersistence.SqlCombined.CombinedDemo;
 import org.junit.Test;
 

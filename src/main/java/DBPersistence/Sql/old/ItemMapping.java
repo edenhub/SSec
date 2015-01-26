@@ -1,4 +1,4 @@
-package DBPersistence.Sql;
+package DBPersistence.Sql.old;
 
 /**
  * Created by lab on 2014/12/25.

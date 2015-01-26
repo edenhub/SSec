@@ -1,4 +1,4 @@
-package DBPersistence.Sql;
+package DBPersistence.Sql.old;
 
 import DBPersistence.Sql.DBUtils.DBToolkit;
 import org.apache.log4j.Logger;
@@ -61,7 +61,7 @@ public class StatementTemplate<R> {
     }
 
     public R executePreparedSQL(PreparedStatementExecutor preparedStatementExecutor,String exeSQL){
-        return executePreparedSQL(preparedStatementExecutor,exeSQL,true);
+        return executePreparedSQL(preparedStatementExecutor, exeSQL, true);
     }
 
     public R executePreparedSQL(PreparedStatementExecutor preparedExecutor,
