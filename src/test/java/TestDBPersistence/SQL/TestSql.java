@@ -20,15 +20,15 @@ public class TestSql {
         String insert1 = "insert into t_users values({1},{10},{29},{13});";
         String insert2 = "insert into t_users values({2},{9},{19},{23});";
 
-        Item item11 = new Item(1,"username","string","adam");
-        Item item12 = new Item(10,"password","string","test");
+        Item item11 = new Item(1,"username","string","adam2");
+        Item item12 = new Item(10,"password","string","test2");
         Item item13 = new Item(29,"age","int","23");
-        Item item14 = new Item(13,"addrr","string","SYSU");
+        Item item14 = new Item(13,"addrr","string","SYSU2");
 
-        Item item21 = new Item(2,"us","string","jack");
-        Item item22 = new Item(9,"pw","string","test2");
+        Item item21 = new Item(2,"us","string","jack2");
+        Item item22 = new Item(9,"pw","string","test22");
         Item item23 = new Item(19,"a","int","2");
-        Item item24 = new Item(23,"s","string","SS");
+        Item item24 = new Item(23,"s","string","SS2");
 
         DataWrapper data = new DataWrapper();
         data.addItem(item11).addItem(item12).addItem(item13).addItem(item14)
