@@ -32,23 +32,55 @@ public class TestSqlRegrex {
 
         Pattern pattern = Pattern.compile(regrex);
         Matcher matcher = pattern.matcher(sql);
+        int index = 0;
+        StringBuffer sb = new StringBuffer();
+        System.out.println(sql);
         while(matcher.find()){
-            System.out.println(matcher.start());
-            System.out.println(matcher.end());
-            System.out.println(sql.substring(matcher.start()+1,matcher.end()-1));
-            System.out.println("----");
+//            System.out.println(matcher.start());
+//            System.out.println(matcher.end());
+//            System.out.println(sql.substring(matcher.start()+1,matcher.end()-1));
+//            System.out.println("----");
+            int start = matcher.start();
+            int end = matcher.end();
+            sb.append(sql.substring(index, index + start - 1));
+            sb.append("-value-");
+            index = end+1;
         }
+        System.out.println(sb.toString());
 
     }
 
     @Test
     public void test02(){
-        final String sql = pros.getProperty("test.itemIdRegrex");
+        final String sql = pros.getProperty("test.itemIdRegrex2");
         final String regrex = "\\{\\d+\\}";
         Pattern pattern = Pattern.compile(regrex);
         Matcher matcher = pattern.matcher(sql);
+        StringBuffer sb = new StringBuffer();
+        System.out.println(sql);
+        int index = 0;
         while(matcher.find()){
+//            System.out.println(matcher.start());
+//            System.out.println(matcher.end());
+            int itemId = Integer.parseInt(sql.substring(matcher.start()+1,matcher.end()-1));
             System.out.println(sql.substring(matcher.start()+1,matcher.end()-1));
+            System.out.println("----");
+            int start = matcher.start();
+            int end = matcher.end();
+            if (end < sql.length()){
+                sb.append(sql.substring(index,start));
+                sb.append("-value-");
+            }
+//            else{
+////                sb.append("-value-");
+//                sb.append(sql.substring(index));
+//            }
+            index = end;
         }
+        sb.append(sql.substring(index));
+        System.out.println(sb.toString());
+//        while(matcher.find()){
+//            System.out.println(sql.substring(matcher.start()+1,matcher.end()-1));
+//        }
     }
 }
