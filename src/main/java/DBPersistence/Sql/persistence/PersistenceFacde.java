@@ -47,6 +47,7 @@ public class PersistenceFacde {
             persistence.init(properties);
     }
 
+
     public void setData(DataWrapper data) {
         this.data = data;
     }

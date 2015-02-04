@@ -3,7 +3,7 @@ package TestDBPersistence.SQL;
 import DBPersistence.Sql.persistence.DefPersistentor;
 import DBPersistence.Sql.persistence.Persistence;
 import DBPersistence.Sql.persistence.data.DataWrapper;
-import DBPersistence.Sql.persistence.data.Item;
+import DBPersistence.Sql.persistence.data.Sql_Item;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -20,15 +20,15 @@ public class TestSql {
         String insert1 = "insert into t_users values({1},{10},{29},{13});";
         String insert2 = "insert into t_users values({2},{9},{19},{23});";
 
-        Item item11 = new Item(1,"username","string","adam2");
-        Item item12 = new Item(10,"password","string","test2");
-        Item item13 = new Item(29,"age","int","23");
-        Item item14 = new Item(13,"addrr","string","SYSU2");
+        Sql_Item item11 = new Sql_Item(1,"username","string","adam2");
+        Sql_Item item12 = new Sql_Item(10,"password","string","test2");
+        Sql_Item item13 = new Sql_Item(29,"age","int","23");
+        Sql_Item item14 = new Sql_Item(13,"addrr","string","SYSU2");
 
-        Item item21 = new Item(2,"us","string","jack2");
-        Item item22 = new Item(9,"pw","string","test22");
-        Item item23 = new Item(19,"a","int","2");
-        Item item24 = new Item(23,"s","string","SS2");
+        Sql_Item item21 = new Sql_Item(2,"us","string","jack2");
+        Sql_Item item22 = new Sql_Item(9,"pw","string","test22");
+        Sql_Item item23 = new Sql_Item(19,"a","int","2");
+        Sql_Item item24 = new Sql_Item(23,"s","string","SS2");
 
         DataWrapper data = new DataWrapper();
         data.addItem(item11).addItem(item12).addItem(item13).addItem(item14)

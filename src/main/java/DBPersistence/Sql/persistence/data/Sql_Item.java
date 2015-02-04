@@ -3,15 +3,15 @@ package DBPersistence.Sql.persistence.data;
 /**
  * Created by lab on 2015/1/27.
  */
-public class Item implements ItemPresentator{
+public class Sql_Item implements ItemPresentator{
     private int itemId;
     private String descriptor;
     private String type;
     private String value;
 
-    public Item(){}
+    public Sql_Item(){}
 
-    public Item(int itemId,String descriptor,String type,String value){
+    public Sql_Item(int itemId, String descriptor, String type, String value){
         this.itemId = itemId;
         this.descriptor = descriptor;
         this.type = type;
