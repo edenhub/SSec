@@ -20,12 +20,12 @@ public class TestSql {
         String insert1 = "insert into t_users values({1},{10},{29},{13});";
         String insert2 = "insert into t_users values({2},{9},{19},{23});";
 
-        Sql_Item item11 = new Sql_Item(1,"username","string","adam2");
+        Sql_Item item11 = new Sql_Item(1,"username","string","adam3");
         Sql_Item item12 = new Sql_Item(10,"password","string","test2");
         Sql_Item item13 = new Sql_Item(29,"age","int","23");
         Sql_Item item14 = new Sql_Item(13,"addrr","string","SYSU2");
 
-        Sql_Item item21 = new Sql_Item(2,"us","string","jack2");
+        Sql_Item item21 = new Sql_Item(2,"us","string","jack3");
         Sql_Item item22 = new Sql_Item(9,"pw","string","test22");
         Sql_Item item23 = new Sql_Item(19,"a","int","2");
         Sql_Item item24 = new Sql_Item(23,"s","string","SS2");

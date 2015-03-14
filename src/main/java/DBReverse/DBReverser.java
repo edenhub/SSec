@@ -6,6 +6,7 @@ import DBReverse.DBInfo.DBType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by lab on 2014/11/19.
@@ -19,6 +20,9 @@ public class DBReverser {
     //表结构列表
     private List<TableStc> tableStcs;
     private DBType dbType;
+
+//    用于存储图与id的关系
+    private Map<String,Integer> graphMapping;
 
     public DBReverser(){
         dbConnector = new DBConnector();
@@ -113,7 +117,10 @@ public class DBReverser {
                 reverseTableStructe(statement,tableName,tableStc);
                 reverseForeignKeys(connection,databaseMetaData, tableName,tableStc);
 
+                tableStc.setId(tableStcs.size());
+                graphMapping.put(tableStc.getTableName(),tableStc.getId());
                 tableStcs.add(tableStc);
+
                 statement.close();
             }while(tableSets.next());
         }
@@ -233,7 +240,15 @@ public class DBReverser {
         this.tableStcs = tableStcs;
     }
 
-       /*
+    public Map<String, Integer> getGraphMapping() {
+        return graphMapping;
+    }
+
+    public void setGraphMapping(Map<String, Integer> graphMapping) {
+        this.graphMapping = graphMapping;
+    }
+
+    /*
     ================================================================
 
                         GetterAndSetter

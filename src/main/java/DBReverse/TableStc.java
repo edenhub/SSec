@@ -14,6 +14,8 @@ import java.util.*;
  * 表结构对象
  */
 public class TableStc implements TableReverse {
+//    用于表示图的id
+    private int id;
 //    表名
     private String tableName;
 //    属性列数
@@ -109,6 +111,16 @@ public class TableStc implements TableReverse {
 //    public void setGeneralizations(Map<String, MapPair<String, String>> generalizations) {
 //        this.generalizations = generalizations;
 //    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
 
        /*
     ================================================================
